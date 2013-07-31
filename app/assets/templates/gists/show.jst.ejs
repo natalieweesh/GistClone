@@ -1,6 +1,7 @@
-<%= gist.escape('title') %>
-
-<div class="favorite-buttons">
-<button id="favorite-button">Favorite</button>
-<button id="unfavorite-button">Unfavorite</button>
+<h1><%= gist.escape('title') %></h1>
+<% console.log(gist) %>
+<% console.log(gist.get('favorited')) %>
+<div class="favorite-buttons <%= (gist.escape('favorited')) === 'true' ? 'favorited' : ''%>">
+<button class="fav" id="favorite-button">Favorite</button>
+<button class="fav" id="unfavorite-button">Unfavorite</button>
 </div>

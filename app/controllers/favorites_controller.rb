@@ -7,6 +7,17 @@ class FavoritesController < ApplicationController
     end
   end
 
+  def show
+    @favorite = Favorite.find_by_gist_id_and_user_id(params[:gist_id], current_user.id)
+    if @favorite
+      respond_to do |format|
+        format.json { render json: @favorite }
+      end
+    else
+      render nothing: true
+    end
+  end
+
   def create
     @favorite = Favorite.create!(user_id: current_user.id, gist_id: params[:gist_id])
     respond_to do |format|

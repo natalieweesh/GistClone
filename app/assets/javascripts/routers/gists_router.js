@@ -21,7 +21,8 @@ GistClone.Routers.GistsRouter = Backbone.Router.extend({
     var that = this;
     var gist = that.gists.findWhere({id: parseInt(id)});
     var gistDetailView = new GistClone.Views.GistDetailView({
-      model: gist
+      model: gist,
+      collection: that.gists
     });
     that.$rootEl.html(gistDetailView.render().$el);
   }
