@@ -1,9 +1,11 @@
 <h1>Gists</h1>
-
+<% console.log(gists) %>
+<ul>
 <% gists.each(function(gist) { %>
-  <% console.log(gist) %>
   <li>
     <a href="#/gists/<%= gist.escape('id') %>"><%= gist.escape('title') %></a>
   </li>
-
 <% }) %>
+</ul>
+
+<a href="#/gists/new">Add gist</a>

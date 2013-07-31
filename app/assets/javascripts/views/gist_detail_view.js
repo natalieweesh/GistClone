@@ -6,7 +6,6 @@ GistClone.Views.GistDetailView = Backbone.View.extend({
     that.listenTo(that.collection, "add", renderCallback);
     that.listenTo(that.collection, "remove", renderCallback);
     that.listenTo(that.collection, "reset", renderCallback);
-    that.listenTo(that.model, "change", renderCallback)
   },
 
   events: {
@@ -18,7 +17,6 @@ GistClone.Views.GistDetailView = Backbone.View.extend({
   tagName: "ul",
 
   render: function() {
-    console.log("called");
     var that = this;
     var renderedContent = that.template({
       gist: that.model
