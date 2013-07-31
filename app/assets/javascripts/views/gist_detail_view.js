@@ -6,15 +6,14 @@ GistClone.Views.GistDetailView = Backbone.View.extend({
     that.listenTo(that.collection, "add", renderCallback);
     that.listenTo(that.collection, "remove", renderCallback);
     that.listenTo(that.collection, "reset", renderCallback);
+    that.listenTo(that.collection, "change", renderCallback);
   },
 
   events: {
-    "click button#favorite-button": "favorite",
-    "click button#unfavorite-button" : "unfavorite"
+    "click button": "toggleFavorite",
   },
 
   template: JST["gists/show"],
-  tagName: "ul",
 
   render: function() {
     var that = this;
@@ -25,12 +24,18 @@ GistClone.Views.GistDetailView = Backbone.View.extend({
     return that;
   },
 
-  favorite: function () {
+  toggleFavorite: function (event) {
+    if (event.currentTarget.id === "favorite-button") {
+      var meth = "POST"
+    } else {
+      var meth = "DELETE"
+    }
+
     $(".favorite-buttons").toggleClass("favorited")
     var that = this;
     $.ajax({
       url: "/gists/" + that.model.id + "/favorite",
-      method: "POST",
+      method: meth,
       success: function() {
         console.log("success!");
         that.model.fetch();
@@ -40,22 +45,6 @@ GistClone.Views.GistDetailView = Backbone.View.extend({
         console.log("error");
       }
     });
-  },
 
-  unfavorite: function() {
-    $(".favorite-buttons").toggleClass("favorited")
-    var that = this;
-    $.ajax({
-      url: "/gists/" + that.model.id + "/favorite",
-      method: "DELETE",
-      success: function() {
-        console.log("success!");
-        that.model.fetch();
-        that.render();
-      },
-      error: function () {
-        console.log("error");
-      }
-    });
   }
 });

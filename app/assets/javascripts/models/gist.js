@@ -5,6 +5,10 @@ GistClone.Models.Gist = Backbone.Model.extend({
     this.attributes = this.parse(response);
   },
 
+  // parse: function (response) {
+  //   var that
+  // },
+
   toJSON: function() {
     var attributes = _.clone(this.attributes);
     $.each(attributes, function(key, value) {

@@ -5,6 +5,7 @@ SessionsTemplate::Application.routes.draw do
     resource :favorite, only: [:create, :destroy, :show]
   end
   resources :favorites, only: :index
+  resources :gist_files, only: [:new, :create, :destroy]
 
   root :to => "users#new"
 end

@@ -17,7 +17,12 @@ class GistsController < ApplicationController
   end
 
   def create
-    @gist = Gist.create!(user_id: current_user.id, title: params[:gist][:title])
+    @gist = Gist.new(params[:gist])
+    @gist.user_id = current_user.id
+    @gist.gist_files.each do |gf|
+      gf.gist_id = @gist.id
+    end
+    @gist.save!
     respond_to do |format|
       format.json { render json: @gist }
     end

@@ -8,6 +8,8 @@ GistClone.Views.GistFormView = Backbone.View.extend({
     var that = this;
     var renderedContent = that.template();
     that.$el.html(renderedContent);
+    // var fileView = new GistClone.Views.FileFormView();
+    that.$el.find('.gist-form').append(JST["gists/file_form"]);
     return that;
   },
 
@@ -15,26 +17,16 @@ GistClone.Views.GistFormView = Backbone.View.extend({
     var that = this;
     event.preventDefault();
     var formData = $('.gist-form').serialize();
-    // var str = $('input[type=text]').val()
-    // var formInfo = {gist: {title: str}}
-    that.collection.create({title: $('input[type=text]').val()});
+    that.collection.create({
+      title: $('input[type=text]').val(),
+      gist_files_attributes: [{
+        name: $('input[name=gist\\[gist_files_attributes\\]\\[0\\]\\[name\\]]').val(),
+        body: $('textarea[name=gist\\[gist_files_attributes\\]\\[0\\]\\[body\\]]').val()
+      }]
+    });
     that.collection.fetch();
     console.log(that.collection);
     Backbone.history.navigate("", {trigger: true});
-        //
-    // $.ajax({
-    //   url: "/gists",
-    //   type: "POST",
-    //   data: formData,
-    //   success: function() {
-    //     console.log("success");
-    //     that.collection.fetch();
-    //
-    //   },
-    //   error: function () {
-    //     console.log("error");
-    //   }
-    // });
   }
 
 });
