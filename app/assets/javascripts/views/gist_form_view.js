@@ -8,7 +8,6 @@ GistClone.Views.GistFormView = Backbone.View.extend({
     var that = this;
     var renderedContent = that.template();
     that.$el.html(renderedContent);
-    // var fileView = new GistClone.Views.FileFormView();
     that.$el.find('.gist-form').append(JST["gists/file_form"]);
     return that;
   },
@@ -25,7 +24,6 @@ GistClone.Views.GistFormView = Backbone.View.extend({
       }]
     });
     that.collection.fetch();
-    console.log(that.collection);
     Backbone.history.navigate("", {trigger: true});
   }
 

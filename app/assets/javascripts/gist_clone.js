@@ -3,8 +3,8 @@ window.GistClone = {
   Collections: {},
   Views: {},
   Routers: {},
-  initialize: function ($rootEl, gistsData) {
-    new GistClone.Routers.GistsRouter($rootEl, gistsData);
+  initialize: function ($sidebar, $content, gistsData) {
+    new GistClone.Routers.GistsRouter($sidebar, $content, gistsData);
     Backbone.history.start();
   }
 }
@@ -12,5 +12,5 @@ window.GistClone = {
 $(function() {
   var gists = JSON.parse($('#bootstrapped_gists_json').html());
 
-  GistClone.initialize($("body"), gists);
+  GistClone.initialize($("#sidebar"), $("#content"), gists);
 })

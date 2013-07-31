@@ -27,3 +27,13 @@
 .favorite-buttons.favorited #favorite-button {
   display: none;
 }
+
+#sidebar {
+  float: left;
+  width: 25%;
+}
+
+#content {
+  float right;
+  width: 75%;
+}

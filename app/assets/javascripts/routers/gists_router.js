@@ -1,6 +1,7 @@
 GistClone.Routers.GistsRouter = Backbone.Router.extend({
-  initialize: function ($rootEl, gistsData) {
-    this.$rootEl = $rootEl;
+  initialize: function ($sidebar, $content, gistsData) {
+    this.$sidebar = $sidebar;
+    this.$content = $content;
     this.gists = new GistClone.Collections.Gists(gistsData);
     gists = this.gists;
   },
@@ -13,11 +14,7 @@ GistClone.Routers.GistsRouter = Backbone.Router.extend({
 
   index: function() {
     var that = this;
-    console.log(that.gists);
-    var gistsIndexView = new GistClone.Views.GistsIndexView({
-      collection: that.gists
-    });
-    that.$rootEl.html(gistsIndexView.render().$el);
+    this.installSidebar(this.$sidebar, this.gists);
   },
 
   show: function(id) {
@@ -27,14 +24,23 @@ GistClone.Routers.GistsRouter = Backbone.Router.extend({
       model: gist,
       collection: that.gists
     });
-    that.$rootEl.html(gistDetailView.render().$el);
+    that.$content.html(gistDetailView.render().$el);
   },
   create: function() {
     var that = this;
     var gistFormView = new GistClone.Views.GistFormView({
       collection: that.gists
     });
-    that.$rootEl.html(gistFormView.render().$el);
+    that.$content.html(gistFormView.render().$el);
+  },
+
+  installSidebar: function ($sidebar, gists) {
+    var that = this;
+
+    var gistsIndexView = new GistClone.Views.GistsIndexView({
+      collection: gists
+    });
+    $sidebar.html(gistsIndexView.render().$el);
   }
 
 });
